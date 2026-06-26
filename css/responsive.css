@@ -1,0 +1,240 @@
+/* ============================================================
+   STAYKOST — responsive.css
+   Mobile-first breakpoints: 768px (tablet) → 1024px (desktop)
+   ============================================================ */
+
+/* ── TABLET: 768px and up ── */
+@media (min-width: 768px) {
+  /* Container padding wider */
+  :root {
+    --container-pad: 2rem;
+  }
+
+  /* Navbar — show links, hide hamburger */
+  .navbar-links {
+    display: flex;
+  }
+
+  .navbar-cta {
+    display: inline-flex;
+  }
+
+  .hamburger {
+    display: none;
+  }
+
+  .mobile-menu {
+    display: none !important; /* Always hidden on tablet+ */
+  }
+
+  /* Hero */
+  .hero-stats {
+    max-width: 420px;
+  }
+
+  /* About */
+  .about-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3xl);
+  }
+
+  /* Swap order so image appears on right on desktop */
+  .about-visual {
+    order: 2;
+  }
+
+  .about-content {
+    order: 1;
+  }
+
+  /* Visi & Misi */
+  .vismis-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Target users */
+  .target-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* StayAssist panel */
+  .sa-panel {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Footer */
+  .footer-top {
+    grid-template-columns: 1.5fr 1fr 1fr;
+  }
+
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+/* ── DESKTOP: 1024px and up ── */
+@media (min-width: 1024px) {
+  :root {
+    --container-pad: 2.5rem;
+  }
+
+  /* Hero two-column layout */
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 0.85fr;
+    gap: var(--space-3xl);
+    align-items: center;
+  }
+
+  .hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Hero mockup visual */
+  .hero-mockup {
+    width: 100%;
+    max-width: 420px;
+    aspect-ratio: 9/16;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: var(--radius-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: rgba(255, 255, 255, 0.18);
+    flex-direction: column;
+    gap: 1rem;
+    margin-inline: auto;
+  }
+
+  .hero-mockup p {
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.3);
+    font-weight: 600;
+  }
+
+  /* Features — 3 column grid */
+  .features-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* About visual taller */
+  .about-visual {
+    aspect-ratio: 1;
+  }
+
+  /* StayAssist panel visual bigger */
+  .sa-panel-visual {
+    aspect-ratio: 4/3;
+    font-size: 5rem;
+  }
+}
+
+/* ── WIDE DESKTOP: 1280px and up ── */
+@media (min-width: 1280px) {
+  :root {
+    --container-pad: 1.5rem;
+  }
+
+  /* Navbar link spacing */
+  .navbar-links {
+    gap: 2.5rem;
+  }
+
+  /* Hero bigger type */
+  .hero-title {
+    max-width: 580px;
+  }
+}
+
+/* ── TOUCH DEVICE ENHANCEMENTS ── */
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover transforms on touch — avoid sticky states */
+  .feature-card:hover,
+  .vismis-card:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+    border-color: var(--color-border);
+  }
+
+  /* Larger tap targets */
+  .navbar-links a {
+    padding-block: 0.5rem;
+  }
+
+  .sa-tab {
+    min-height: 48px;
+    padding: 0.7rem 1.3rem;
+  }
+}
+
+/* ── REDUCED MOTION ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal,
+  .reveal-left,
+  .reveal-right {
+    opacity: 1;
+    transform: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ── PRINT ── */
+@media print {
+  .navbar,
+  .mobile-menu,
+  .hamburger,
+  .hero-actions,
+  .cta-section,
+  .btn {
+    display: none !important;
+  }
+
+  body {
+    font-size: 12pt;
+    color: #000;
+  }
+
+  main {
+    padding-top: 0;
+  }
+
+  .section {
+    padding-block: 1.5rem;
+  }
+
+  .hero {
+    background: #fff;
+    color: #000;
+    padding-block: 1rem;
+  }
+
+  .hero-title,
+  .hero-subtitle {
+    color: #000;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 10pt;
+    color: #555;
+  }
+}
