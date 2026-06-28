@@ -41,6 +41,13 @@
   --color-border: var(--gray-200);
   --color-bg-alt: var(--gray-50);
 
+  /* ── Background tokens (dark-mode-safe) ──
+     Dipisah dari --white agar --white tetap #FFFFFF
+     sebagai warna TEKS di section navy/dark.         */
+  --bg-page: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-alt: #f8f9fc;
+
   /* Typography */
   --font-main: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
 
@@ -106,7 +113,7 @@ body {
   font-family: var(--font-main);
   font-size: var(--text-base);
   color: var(--color-text-body);
-  background-color: var(--white);
+  background-color: var(--bg-page);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -157,7 +164,7 @@ button {
 }
 
 .section-alt {
-  background-color: var(--color-bg-alt);
+  background-color: var(--bg-alt);
 }
 
 .section-dark {
@@ -681,7 +688,7 @@ main {
 }
 
 .vismis-card {
-  background: var(--white);
+  background: var(--bg-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: var(--space-xl);
@@ -765,7 +772,7 @@ main {
 }
 
 .feature-card {
-  background: var(--white);
+  background: var(--bg-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: var(--space-xl);
@@ -979,7 +986,7 @@ main {
 }
 
 .target-card--pemilik {
-  background: var(--white);
+  background: var(--bg-surface);
   border: 1px solid var(--color-border);
   color: var(--color-text-heading);
   box-shadow: var(--shadow-md);
@@ -1254,4 +1261,667 @@ main {
 :focus-visible {
   outline: 3px solid var(--blue-400);
   outline-offset: 3px;
+}
+
+/* ── 19. TIPE KAMAR (NEW SECTION) ── */
+.room-grid {
+  display: grid;
+  gap: var(--space-lg);
+  margin-top: var(--space-2xl);
+}
+
+.room-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  transition:
+    box-shadow var(--transition),
+    transform var(--transition);
+}
+
+.room-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-5px);
+}
+
+.room-card--vip {
+  border-color: var(--blue-200);
+  box-shadow: var(--shadow-md);
+}
+
+/* Top badge (Paling Diminati) */
+.room-card-badge-top {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  z-index: 2;
+}
+
+/* Card header visual */
+.room-card-header {
+  padding: var(--space-xl) var(--space-xl) var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-md);
+  position: relative;
+}
+
+.room-card-header--biasa {
+  background: var(--bg-alt);
+}
+
+.room-card-header--vip {
+  background: linear-gradient(135deg, var(--navy-700) 0%, var(--navy-500) 100%);
+}
+
+.room-card-visual {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+}
+
+.room-card-header--biasa .room-card-visual {
+  background: var(--blue-50);
+  color: var(--navy-700);
+}
+
+.room-card-header--vip .room-card-visual {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--white);
+}
+
+.room-badge {
+  font-size: var(--text-xl);
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+
+.room-card-header--biasa .room-badge {
+  color: var(--color-text-heading);
+}
+.room-card-header--vip .room-badge {
+  color: var(--white);
+}
+
+.room-badge--vip {
+  color: var(--white);
+}
+
+/* Card body */
+.room-card-body {
+  padding: var(--space-xl);
+}
+
+.room-card-tagline {
+  font-size: var(--text-base);
+  color: var(--color-text-body);
+  line-height: 1.65;
+  margin-bottom: var(--space-lg);
+}
+
+/* Feature list */
+.room-features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.room-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-size: var(--text-sm);
+  color: var(--color-text-body);
+  line-height: 1.5;
+}
+
+.room-features li i {
+  color: var(--blue-500);
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+/* Sewa note */
+.room-sewa-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: var(--space-xl);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.room-sewa-note i {
+  color: var(--blue-600);
+}
+
+/* ── 20. TARGET SEGMENTS (REPLACES TARGET GRID) ── */
+.target-segments {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-lg);
+}
+
+.target-segment {
+  background: var(--bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  text-align: center;
+  transition:
+    box-shadow var(--transition),
+    transform var(--transition),
+    border-color var(--transition);
+}
+
+.target-segment:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+  border-color: var(--blue-200);
+}
+
+.target-segment-icon {
+  width: 56px;
+  height: 56px;
+  background: var(--blue-50);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-md);
+  font-size: 1.4rem;
+  color: var(--navy-700);
+  transition:
+    background var(--transition),
+    color var(--transition);
+}
+
+.target-segment:hover .target-segment-icon {
+  background: var(--navy-700);
+  color: var(--white);
+}
+
+.target-segment-title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-text-heading);
+  margin-bottom: var(--space-sm);
+}
+
+.target-segment-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DARK MODE — [data-theme="dark"]
+   ─────────────────────────────────────────────────────────
+   PRINSIP UTAMA:
+   --white TIDAK dioverride. Nilainya tetap #FFFFFF sehingga
+   semua teks putih di section navy (Hero, Navbar, StayAssist,
+   CTA, Footer) tetap terbaca.
+
+   Yang dioverride HANYA token background khusus:
+   --bg-page    → body background
+   --bg-surface → card / panel background
+   --bg-alt     → section alt background
+   ─────────────────────────────────────────────────────────
+   Layer system:
+     Page bg    #13141A  (near-black, warm dark)
+     Section alt #1A1F2E  (dark slate, jelas beda dari page)
+     Card       #1F2640  (dark navy-slate)
+     Card hover #26304F  (sedikit lebih terang)
+     Border     #2C3A58  (visible, tidak harsh)
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Smooth transition saat switch tema ── */
+html {
+  transition: background-color 0.3s ease;
+}
+body,
+.feature-card,
+.vismis-card,
+.room-card,
+.target-segment,
+.room-card-header--biasa,
+.section-picture,
+.about-visual {
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* ── Token overrides ── */
+[data-theme="dark"] {
+  /* Background layers */
+  --bg-page: #13141a;
+  --bg-surface: #1f2640;
+  --bg-alt: #1a1f2e;
+
+  /* Border */
+  --color-border: #2c3a58;
+  --gray-200: #2c3a58;
+
+  /* Text */
+  --color-text-heading: #edf2ff;
+  --color-text-body: #a0b3cc;
+  --color-text-muted: #5e7a96;
+
+  /* Blue icon/badge backgrounds di dark */
+  --blue-50: #172040;
+
+  /* Shadows */
+  --shadow-sm:
+    0 1px 3px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.03);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 8px 36px rgba(0, 0, 0, 0.65);
+}
+
+/* ════════════════════════════════════════
+   HERO — Dark mode redisgn
+   Lebih gelap dari light mode, tetapi warna
+   navy primer tetap terasa di ujung gradient.
+   ════════════════════════════════════════ */
+
+/* Gradient jauh lebih gelap — near-black → dark navy → primary navy */
+[data-theme="dark"] .hero {
+  background: linear-gradient(
+    145deg,
+    #020915 0%,
+    #06112a 40%,
+    #0c1e4a 75%,
+    #0d2257 100%
+  );
+}
+
+/* Blobs lebih kuat di dark mode — memberikan depth */
+[data-theme="dark"] .hero::before {
+  background: radial-gradient(
+    circle,
+    rgba(59, 130, 246, 0.28) 0%,
+    rgba(99, 102, 241, 0.12) 40%,
+    transparent 70%
+  );
+  width: clamp(280px, 55vw, 600px);
+  height: clamp(280px, 55vw, 600px);
+}
+
+[data-theme="dark"] .hero::after {
+  background: radial-gradient(
+    circle,
+    rgba(59, 130, 246, 0.18) 0%,
+    transparent 65%
+  );
+  width: clamp(200px, 40vw, 420px);
+  height: clamp(200px, 40vw, 420px);
+}
+
+/* Badge — teks terang, border lebih kontras */
+[data-theme="dark"] .hero-badge {
+  background: rgba(96, 165, 250, 0.14);
+  color: #93c5fd; /* light blue — visible di dark */
+  border-color: rgba(96, 165, 250, 0.5); /* border lebih tebal/terang */
+  box-shadow: 0 0 16px rgba(59, 130, 246, 0.2);
+}
+
+/* Hero mockup container — lebih gelap di dark */
+[data-theme="dark"] .hero-mockup {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Stats separator line */
+[data-theme="dark"] .hero-stats {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+[data-theme="dark"] .feature-card {
+  border-color: #2c3a58;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+[data-theme="dark"] .feature-card:hover {
+  background: #26304f;
+  border-color: #3a5080;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .vismis-card {
+  border-color: #2c3a58;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+[data-theme="dark"] .vismis-card:hover {
+  background: #26304f;
+  border-color: #3a5080;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .room-card {
+  border-color: #2c3a58;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+[data-theme="dark"] .room-card:hover {
+  background: #26304f;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.55);
+}
+[data-theme="dark"] .room-card--vip {
+  border-color: #3b82f6;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(59, 130, 246, 0.18);
+}
+
+[data-theme="dark"] .target-segment {
+  border-color: #2c3a58;
+}
+[data-theme="dark"] .target-segment:hover {
+  background: #26304f;
+  border-color: #3a5080;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* ════════════════════════════════════════
+   ICONS — semua override ke bright blue
+   karena navy-700 tidak visible di bg gelap
+   ════════════════════════════════════════ */
+[data-theme="dark"] .feature-icon {
+  background: #172040;
+  color: #60a5fa;
+}
+[data-theme="dark"] .feature-card:hover .feature-icon {
+  background: #2563eb;
+  color: #fff;
+}
+[data-theme="dark"] .vismis-card-icon {
+  background: #172040;
+  color: #60a5fa;
+}
+[data-theme="dark"] .vismis-card-label {
+  color: #60a5fa;
+}
+[data-theme="dark"] .about-list-item-icon {
+  background: #172040;
+}
+[data-theme="dark"] .about-list-item-icon i {
+  color: #60a5fa;
+}
+[data-theme="dark"] .about-list-item:hover .about-list-item-icon {
+  background: #2563eb;
+}
+[data-theme="dark"] .about-list-item:hover .about-list-item-icon i {
+  color: #fff;
+}
+[data-theme="dark"] .target-segment-icon {
+  background: #172040;
+  color: #60a5fa;
+}
+[data-theme="dark"] .target-segment:hover .target-segment-icon {
+  background: #2563eb;
+  color: #fff;
+}
+
+/* ════════════════════════════════════════
+   EYEBROW BADGES
+   ════════════════════════════════════════ */
+[data-theme="dark"] .section-eyebrow {
+  background: #172040;
+  color: #60a5fa;
+}
+
+/* ════════════════════════════════════════
+   ROOM CARD — Kamar Biasa header
+   ════════════════════════════════════════ */
+[data-theme="dark"] .room-card-header--biasa .room-card-visual {
+  background: #172040;
+  color: #60a5fa;
+}
+[data-theme="dark"] .room-card-header--biasa .room-badge {
+  color: #edf2ff;
+}
+[data-theme="dark"] .room-features li i {
+  color: #60a5fa;
+}
+[data-theme="dark"] .room-sewa-note {
+  color: var(--color-text-muted);
+}
+[data-theme="dark"] .room-sewa-note i {
+  color: #60a5fa;
+}
+
+/* ════════════════════════════════════════
+   MISI LIST
+   ════════════════════════════════════════ */
+[data-theme="dark"] .misi-list li::before {
+  background: #60a5fa;
+}
+
+/* ════════════════════════════════════════
+   ABOUT VISUAL
+   ════════════════════════════════════════ */
+[data-theme="dark"] .about-visual {
+  border-color: #2c3a58;
+}
+[data-theme="dark"] .section-picture {
+  border-color: #2c3a58;
+}
+[data-theme="dark"] .section-picture-placeholder {
+  color: #3b82f6;
+}
+[data-theme="dark"] .section-picture-placeholder i {
+  opacity: 0.4;
+}
+[data-theme="dark"] .sa-panel-picture {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ════════════════════════════════════════
+   BUTTONS — hanya yang perlu diubah
+   ════════════════════════════════════════ */
+[data-theme="dark"] .btn-outline-navy {
+  color: #93c5fd;
+  border-color: #3b82f6;
+  background: transparent;
+}
+[data-theme="dark"] .btn-outline-navy:hover,
+[data-theme="dark"] .btn-outline-navy:focus-visible {
+  background: #2563eb;
+  color: #fff;
+  border-color: #2563eb;
+}
+
+/* ════════════════════════════════════════
+   MOBILE MENU
+   ════════════════════════════════════════ */
+[data-theme="dark"] .mobile-menu {
+  background: #0e1218;
+  border-top-color: rgba(255, 255, 255, 0.06);
+}
+[data-theme="dark"] .mobile-menu-links a:hover {
+  background: rgba(96, 165, 250, 0.09);
+  color: #fff;
+}
+
+/* ════════════════════════════════════════
+   MISC
+   ════════════════════════════════════════ */
+[data-theme="dark"] .cta-contact a {
+  color: #93c5fd;
+}
+[data-theme="dark"] .sa-panel-picture .section-picture-placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   THEME TOGGLE BUTTON
+   ═══════════════════════════════════════════════════════════ */
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1.1rem;
+  transition:
+    background var(--transition),
+    border-color var(--transition),
+    transform var(--transition),
+    color var(--transition);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: var(--white);
+  transform: rotate(15deg);
+}
+
+.theme-toggle:active {
+  transform: rotate(15deg) scale(0.92);
+}
+
+.theme-toggle:focus-visible {
+  outline: 3px solid var(--blue-400);
+  outline-offset: 2px;
+}
+
+/* Sun icon warna kuning di dark mode */
+[data-theme="dark"] .theme-toggle .ti-sun {
+  color: #fcd34d;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PICTURE ELEMENTS — Section images
+   ═══════════════════════════════════════════════════════════ */
+
+/* Generic section picture wrapper */
+.section-picture {
+  position: relative;
+  background: var(--blue-50);
+  border: 1px solid var(--blue-200);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.section-picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Fallback placeholder shown when img fails / not provided */
+.section-picture-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  color: var(--blue-600);
+  text-align: center;
+  padding: var(--space-lg);
+  /* Hidden when img loads successfully */
+  z-index: 0;
+}
+
+.section-picture-placeholder i {
+  font-size: 3rem;
+  opacity: 0.35;
+}
+
+.section-picture-placeholder p {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+.section-picture img.loaded + .section-picture-placeholder {
+  display: none;
+}
+
+/* ── Hero picture (right column) ── */
+.hero-picture {
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 3/4;
+  margin-inline: auto;
+}
+
+/* Overlay gradient on hero image for text legibility */
+.hero-picture::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 60%,
+    rgba(13, 34, 87, 0.5) 100%
+  );
+  border-radius: var(--radius-xl);
+  pointer-events: none;
+}
+
+/* ── About picture ── */
+.about-picture {
+  aspect-ratio: 1;
+}
+
+/* ── Room card picture (replaces icon header) ── */
+.room-picture {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* ── StayAssist panel picture ── */
+.sa-panel-picture {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  position: relative;
+}
+
+.sa-panel-picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.sa-panel-picture .section-picture-placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.sa-panel-picture .section-picture-placeholder i {
+  font-size: 3.5rem;
+  opacity: 0.25;
 }

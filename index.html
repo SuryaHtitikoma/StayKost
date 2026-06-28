@@ -1,33 +1,38 @@
 <!doctype html>
-<html lang="id">
+<html lang="id" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="StayKost — Platform digital hunian kos yang terpercaya. Temukan, pesan, dan bayar kos impianmu dalam satu aplikasi terintegrasi."
+      content="StayKost — Penyedia hunian kos modern yang membangun, memiliki, dan mengelola seluruh unit secara langsung. Nyaman, aman, dan terjangkau."
     />
     <meta
       name="keywords"
-      content="kos, sewa kamar, hunian, platform kos, cari kos, StayKost"
+      content="kos, sewa kamar kos, hunian modern, kos dekat kampus, kos dekat kantor, StayKost"
     />
     <meta name="author" content="StayKost" />
 
-    <!-- Open Graph (sosial media preview) -->
+    <!-- Open Graph -->
     <meta
       property="og:title"
-      content="StayKost — Platform Digital Hunian Kos Terpercaya"
+      content="StayKost — Hunian Kos Modern yang Terpercaya"
     />
     <meta
       property="og:description"
-      content="Temukan, pesan, dan bayar kos impianmu — semua dalam satu aplikasi terintegrasi."
+      content="StayKost membangun, memiliki, dan mengelola hunian kos modern. Kualitas terjamin, pelayanan profesional, fasilitas lengkap."
     />
     <meta property="og:type" content="website" />
 
-    <title>StayKost — Platform Digital Hunian Kos Terpercaya</title>
+    <title>StayKost — Hunian Kos Modern yang Terpercaya & Terjangkau</title>
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/assets/favico.ico" />
+    <!-- Favicon (swapped by theme.js) -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/assets/images/favicon.ico"
+      id="favicon-link"
+    />
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -52,10 +57,15 @@
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/animations.css" />
     <link rel="stylesheet" href="css/responsive.css" />
+
+    <!--
+    theme.js dimuat di <head> (bukan di bawah body) supaya
+    [data-theme] diterapkan SEBELUM render — mencegah flash of wrong theme.
+  -->
+    <script src="js/theme.js"></script>
   </head>
 
   <body>
-    <!-- Skip Navigation (Accessibility) -->
     <a href="#main-content" class="skip-link">Lewati ke konten utama</a>
 
     <!-- ════════════════════════════════════════
@@ -66,8 +76,9 @@
         <!-- Logo -->
         <a href="#" class="navbar-logo" aria-label="StayKost — Halaman utama">
           <img
+            id="navbar-logo-img"
             src="assets/images/logo.png"
-            alt=""
+            alt="StayKost logo"
             width="36"
             height="36"
             style="border-radius: 6px"
@@ -81,30 +92,43 @@
           <ul class="navbar-links" id="navbar-links">
             <li><a href="#tentang" class="nav-link">Tentang</a></li>
             <li><a href="#visi-misi" class="nav-link">Visi &amp; Misi</a></li>
-            <li><a href="#fitur" class="nav-link">Fitur</a></li>
+            <li><a href="#tipe-kamar" class="nav-link">Tipe Kamar</a></li>
+            <li><a href="#fasilitas" class="nav-link">Fasilitas</a></li>
             <li><a href="#stayassist" class="nav-link">StayAssist</a></li>
-            <li><a href="#target" class="nav-link">Pengguna</a></li>
           </ul>
         </nav>
 
-        <!-- Desktop CTA -->
-        <a href="#cta" class="btn btn-primary btn-sm navbar-cta">
-          <i class="ti ti-download" aria-hidden="true"></i>
-          Unduh Aplikasi
-        </a>
+        <!-- Right side: Theme Toggle + CTA + Hamburger -->
+        <div style="display: flex; align-items: center; gap: 0.6rem">
+          <!-- Theme Toggle Button -->
+          <button
+            id="theme-toggle"
+            class="theme-toggle"
+            aria-label="Ganti ke mode gelap"
+            title="Mode Gelap"
+          >
+            <i id="theme-toggle-icon" class="ti ti-moon" aria-hidden="true"></i>
+          </button>
 
-        <!-- Hamburger Button (Mobile) -->
-        <button
-          class="hamburger"
-          id="hamburger"
-          aria-label="Buka menu navigasi"
-          aria-expanded="false"
-          aria-controls="mobile-menu"
-        >
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
-        </button>
+          <!-- Desktop CTA -->
+          <a href="#cta" class="btn btn-primary btn-sm navbar-cta">
+            <i class="ti ti-door-enter" aria-hidden="true"></i>
+            Sewa Kamar
+          </a>
+
+          <!-- Hamburger (Mobile) -->
+          <button
+            class="hamburger"
+            id="hamburger"
+            aria-label="Buka menu navigasi"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+          >
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </button>
+        </div>
       </div>
     </header>
 
@@ -120,15 +144,14 @@
         <li>
           <a href="#visi-misi" class="mobile-nav-link">Visi &amp; Misi</a>
         </li>
-        <li>
-          <a href="#fitur" class="mobile-nav-link">Fitur &amp; Layanan</a>
-        </li>
+        <li><a href="#tipe-kamar" class="mobile-nav-link">Tipe Kamar</a></li>
+        <li><a href="#fasilitas" class="mobile-nav-link">Fasilitas</a></li>
         <li><a href="#stayassist" class="mobile-nav-link">StayAssist</a></li>
-        <li><a href="#target" class="mobile-nav-link">Target Pengguna</a></li>
+        <li><a href="#target" class="mobile-nav-link">Target Penghuni</a></li>
       </ul>
       <a href="#cta" class="btn btn-primary mobile-nav-link">
-        <i class="ti ti-download" aria-hidden="true"></i>
-        Unduh Aplikasi
+        <i class="ti ti-door-enter" aria-hidden="true"></i>
+        Sewa Kamar Sekarang
       </a>
     </nav>
 
@@ -140,66 +163,73 @@
       <section class="hero" id="hero" aria-label="Hero">
         <div class="container">
           <div class="hero-inner">
-            <!-- Hero Left: Text Content -->
+            <!-- Left: Text -->
             <div class="hero-left">
               <div class="hero-badge">
-                <i class="ti ti-shield-check" aria-hidden="true"></i>
-                Platform Kos Digital Terpercaya #1
+                <i class="ti ti-building" aria-hidden="true"></i>
+                Properti Kos Modern — Dibangun &amp; Dikelola Sendiri
               </div>
 
               <h1 class="hero-title">
-                Platform Digital<br />
-                Hunian Kos yang<br />
-                <span>Terpercaya &amp; Terintegrasi</span>
+                Hunian Kos Modern<br />
+                yang <span>Nyaman, Aman,</span><br />
+                dan Terjangkau
               </h1>
 
               <p class="hero-subtitle">
-                Temukan, pesan, dan bayar kos impianmu — semua dalam satu
-                aplikasi. Informasi lengkap, proses cepat, pengalaman hunian
-                yang lebih nyaman.
+                StayKost membangun, memiliki, dan mengelola langsung seluruh
+                unit kos. Kualitas bangunan, fasilitas, kebersihan, dan
+                pelayanan terjaga konsisten — bukan sekadar platform listing.
               </p>
 
               <div class="hero-actions">
-                <a href="#cta" class="btn btn-primary">
-                  <i class="ti ti-search" aria-hidden="true"></i>
-                  Cari Kos Sekarang
+                <a href="#tipe-kamar" class="btn btn-primary">
+                  <i class="ti ti-door-enter" aria-hidden="true"></i>
+                  Lihat Tipe Kamar
                 </a>
-                <a href="#fitur" class="btn btn-outline">
-                  <i class="ti ti-building" aria-hidden="true"></i>
-                  Daftarkan Properti
+                <a href="#stayassist" class="btn btn-outline">
+                  <i class="ti ti-stars" aria-hidden="true"></i>
+                  Kenali StayAssist
                 </a>
               </div>
 
-              <!-- Quick Stats -->
               <div
                 class="hero-stats"
                 role="list"
                 aria-label="Statistik StayKost"
               >
                 <div role="listitem">
-                  <div class="hero-stat-num">5.000+</div>
-                  <div class="hero-stat-label">Listing Kos</div>
+                  <div class="hero-stat-num">2</div>
+                  <div class="hero-stat-label">Tipe Kamar</div>
                 </div>
                 <div role="listitem">
-                  <div class="hero-stat-num">20K+</div>
-                  <div class="hero-stat-label">Pengguna Aktif</div>
+                  <div class="hero-stat-num">100%</div>
+                  <div class="hero-stat-label">Dikelola Sendiri</div>
                 </div>
                 <div role="listitem">
-                  <div class="hero-stat-num">50+</div>
-                  <div class="hero-stat-label">Kota</div>
+                  <div class="hero-stat-num">24/7</div>
+                  <div class="hero-stat-label">Layanan Penghuni</div>
                 </div>
               </div>
             </div>
 
-            <!-- Hero Right: App Mockup Visual (desktop only) -->
+            <!-- Right: Building photo -->
             <div class="hero-right" aria-hidden="true">
-              <div class="hero-mockup">
-                <!-- Ganti dengan gambar mockup aplikasi nyata -->
-                <i
-                  class="ti ti-device-mobile"
-                  style="font-size: 3.5rem; opacity: 0.3"
-                ></i>
-                <p>App Mockup</p>
+              <!--
+              Ganti src dengan foto gedung / eksterior StayKost nyata.
+              Gambar ini hanya tampil di desktop (≥1024px).
+            -->
+              <div class="section-picture hero-picture">
+                <img
+                  src="assets/images/hero-building.jpg"
+                  alt="Gedung hunian StayKost"
+                  loading="eager"
+                  onerror="this.style.display = 'none'"
+                />
+                <div class="section-picture-placeholder" aria-hidden="true">
+                  <i class="ti ti-building-estate"></i>
+                  <p>Foto Gedung StayKost<br />hero-building.jpg</p>
+                </div>
               </div>
             </div>
           </div>
@@ -210,26 +240,39 @@
       <section class="section" id="tentang" aria-label="Tentang StayKost">
         <div class="container">
           <div class="about-grid">
-            <!-- Visual -->
-            <div class="about-visual reveal reveal-left" aria-hidden="true">
-              <!-- Ganti dengan gambar nyata (foto tim/kantor/app) -->
-              <div class="about-visual-placeholder">
-                <i class="ti ti-home-2"></i>
-                <p>Foto / Ilustrasi</p>
+            <!-- Left: Interior/lobby photo -->
+            <div class="about-visual reveal reveal-left">
+              <!--
+              Ganti src dengan foto lobby / interior / tim StayKost.
+            -->
+              <div
+                class="section-picture about-picture"
+                style="width: 100%; height: 100%"
+              >
+                <img
+                  src="assets/images/about-interior.jpg"
+                  alt="Interior dan area bersama StayKost"
+                  loading="lazy"
+                  onerror="this.style.display = 'none'"
+                />
+                <div class="section-picture-placeholder" aria-hidden="true">
+                  <i class="ti ti-armchair"></i>
+                  <p>Foto Interior / Lobby<br />about-interior.jpg</p>
+                </div>
               </div>
             </div>
 
-            <!-- Content -->
+            <!-- Right: Content -->
             <div class="about-content reveal reveal-right">
               <p class="section-eyebrow">Tentang Kami</p>
               <h2 class="section-title">
-                Solusi Digital untuk<br />Hunian Kos Modern
+                Bukan Sekadar<br />Platform Listing Kos
               </h2>
               <p class="section-subtitle">
-                StayKost adalah perusahaan berbasis teknologi digital yang
-                menyediakan platform pencarian, pemesanan, dan pengelolaan
-                hunian kos secara menyeluruh — dalam satu ekosistem yang
-                terintegrasi.
+                StayKost adalah perusahaan properti berbasis teknologi yang
+                membangun, memiliki, dan mengelola seluruh unit kos secara
+                mandiri — berbeda dari platform yang hanya mengumpulkan listing
+                dari banyak pemilik.
               </p>
 
               <ul class="about-list" role="list">
@@ -238,8 +281,9 @@
                     <i class="ti ti-check"></i>
                   </span>
                   <span
-                    >Informasi kos lengkap: harga, fasilitas, lokasi, foto,
-                    aturan, dan ketersediaan kamar</span
+                    >Kualitas bangunan, fasilitas, kebersihan, dan keamanan
+                    terjaga konsisten karena dikelola langsung oleh
+                    StayKost</span
                   >
                 </li>
                 <li class="about-list-item">
@@ -247,8 +291,8 @@
                     <i class="ti ti-check"></i>
                   </span>
                   <span
-                    >Proses dari pencarian hingga pembayaran sepenuhnya digital
-                    — tanpa perlu berpindah-pindah</span
+                    >Setiap unit dibangun dengan konsep hunian modern yang
+                    mengutamakan kenyamanan dan kemudahan penghuni</span
                   >
                 </li>
                 <li class="about-list-item">
@@ -256,8 +300,8 @@
                     <i class="ti ti-check"></i>
                   </span>
                   <span
-                    >Membantu pemilik kos memasarkan dan mengelola properti
-                    secara efisien</span
+                    >Lokasi strategis dekat kampus, kawasan perkantoran, dan
+                    pusat kota</span
                   >
                 </li>
                 <li class="about-list-item">
@@ -265,8 +309,9 @@
                     <i class="ti ti-check"></i>
                   </span>
                   <span
-                    >Menjawab problem klasik: informasi kos yang sulit ditemukan
-                    dan survei yang menyita waktu</span
+                    >Sistem pengelolaan digital via aplikasi StayKost —
+                    pengajuan kebutuhan dan keluhan lebih cepat dan
+                    terdokumentasi</span
                   >
                 </li>
               </ul>
@@ -286,53 +331,50 @@
             <p class="section-eyebrow">Landasan Kami</p>
             <h2 class="section-title">Visi &amp; Misi</h2>
             <p class="section-subtitle">
-              Arah yang kami tuju dan komitmen yang mendasari setiap langkah
-              StayKost.
+              Komitmen yang mendasari setiap unit yang kami bangun dan setiap
+              penghuni yang kami layani.
             </p>
           </div>
 
           <div class="vismis-grid" style="margin-top: var(--space-2xl)">
-            <!-- Visi Card -->
             <div class="vismis-card reveal reveal-delay-1">
               <div class="vismis-card-icon" aria-hidden="true">
                 <i class="ti ti-eye"></i>
               </div>
               <div class="vismis-card-label">Visi</div>
-              <h3 class="vismis-card-title">Platform Hunian Kos Terpercaya</h3>
+              <h3 class="vismis-card-title">
+                Penyedia Hunian Kos Modern Terpercaya
+              </h3>
               <p>
-                Menjadi platform digital hunian kos yang terpercaya dan
-                memberikan kemudahan bagi masyarakat dalam menemukan tempat
-                tinggal yang nyaman sesuai kebutuhan.
+                Menjadi perusahaan penyedia hunian kos modern yang terpercaya,
+                nyaman, dan terjangkau — hadir di lokasi-lokasi strategis untuk
+                memenuhi kebutuhan mahasiswa, pekerja, dan perantau di seluruh
+                Indonesia.
               </p>
             </div>
 
-            <!-- Misi Card -->
             <div class="vismis-card reveal reveal-delay-2">
               <div class="vismis-card-icon" aria-hidden="true">
                 <i class="ti ti-target"></i>
               </div>
               <div class="vismis-card-label">Misi</div>
-              <h3 class="vismis-card-title">Lima Komitmen Utama Kami</h3>
+              <h3 class="vismis-card-title">Empat Komitmen Utama Kami</h3>
               <ul class="misi-list" role="list">
                 <li>
-                  Menyediakan informasi kos yang lengkap, akurat, dan mudah
-                  diakses
+                  Membangun hunian kos berkualitas di lokasi strategis dekat
+                  kampus, kawasan perkantoran, dan pusat kota
                 </li>
                 <li>
-                  Mempermudah pencarian, pemesanan, dan pembayaran via teknologi
-                  digital
+                  Menyediakan fasilitas hunian yang sesuai kebutuhan di setiap
+                  tipe kamar yang ditawarkan
                 </li>
                 <li>
-                  Menghubungkan pemilik kos dengan calon penghuni secara cepat
-                  dan efisien
+                  Memberikan pelayanan yang cepat, responsif, dan profesional
+                  kepada seluruh penghuni
                 </li>
                 <li>
-                  Membantu pemilik kos memasarkan &amp; mengelola properti
-                  secara digital
-                </li>
-                <li>
-                  Menciptakan pengalaman hunian yang transparan, nyaman, dan
-                  terpercaya
+                  Menciptakan lingkungan tinggal yang aman, bersih, dan nyaman
+                  melalui pengelolaan properti yang terstandarisasi
                 </li>
               </ul>
             </div>
@@ -340,100 +382,308 @@
         </div>
       </section>
 
-      <!-- ── 4. FITUR & LAYANAN ── -->
-      <section class="section" id="fitur" aria-label="Fitur dan Layanan">
+      <!-- ── 4. TIPE KAMAR ── -->
+      <section class="section" id="tipe-kamar" aria-label="Tipe Kamar StayKost">
         <div class="container">
           <div class="text-center reveal">
-            <p class="section-eyebrow">Apa yang Kami Tawarkan</p>
-            <h2 class="section-title">Fitur &amp; Layanan</h2>
+            <p class="section-eyebrow">Pilihan Hunian</p>
+            <h2 class="section-title">Dua Tipe Kamar</h2>
             <p class="section-subtitle">
-              Semua yang kamu butuhkan untuk menemukan dan mengelola hunian kos
-              — tersedia dalam satu platform yang terintegrasi.
+              Pilih kamar yang paling sesuai dengan kebutuhan dan anggaranmu.
+              Semua tipe dilengkapi fasilitas standar yang nyaman.
+            </p>
+          </div>
+
+          <div class="room-grid">
+            <!-- Kamar Biasa -->
+            <article
+              class="room-card reveal reveal-delay-1"
+              aria-label="Kamar Biasa"
+            >
+              <!--
+              Foto kamar biasa — ganti src dengan foto nyata.
+              Ukuran ideal: 800×450px, rasio 16:9.
+            -->
+              <div class="section-picture room-picture">
+                <img
+                  src="assets/images/room-biasa.jpg"
+                  alt="Foto Kamar Biasa StayKost"
+                  loading="lazy"
+                  onerror="this.style.display = 'none'"
+                />
+                <div class="section-picture-placeholder" aria-hidden="true">
+                  <i class="ti ti-bed"></i>
+                  <p>Foto Kamar Biasa<br />room-biasa.jpg</p>
+                </div>
+              </div>
+
+              <div class="room-card-body">
+                <div
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 0.6rem;
+                    margin-bottom: var(--space-md);
+                  "
+                >
+                  <div
+                    class="room-card-visual room-card-visual--inline"
+                    aria-hidden="true"
+                    style="
+                      width: 40px;
+                      height: 40px;
+                      background: var(--blue-50);
+                      border-radius: var(--radius-md);
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      font-size: 1.2rem;
+                      color: var(--navy-700);
+                    "
+                  >
+                    <i class="ti ti-bed"></i>
+                  </div>
+                  <span class="room-badge" style="font-size: var(--text-xl)"
+                    >Kamar Biasa</span
+                  >
+                </div>
+
+                <p class="room-card-tagline">
+                  Pilihan nyaman dan praktis dengan harga lebih terjangkau.
+                  Cocok untuk mahasiswa dan perantau yang membutuhkan tempat
+                  tinggal aman sehari-hari.
+                </p>
+                <ul
+                  class="room-features"
+                  role="list"
+                  aria-label="Fasilitas Kamar Biasa"
+                >
+                  <li>
+                    <i class="ti ti-check-circle" aria-hidden="true"></i> Tempat
+                    tidur &amp; kasur standar nyaman
+                  </li>
+                  <li>
+                    <i class="ti ti-check-circle" aria-hidden="true"></i> Lemari
+                    pakaian
+                  </li>
+                  <li>
+                    <i class="ti ti-check-circle" aria-hidden="true"></i> Meja
+                    belajar / kerja
+                  </li>
+                  <li>
+                    <i class="ti ti-check-circle" aria-hidden="true"></i> Kamar
+                    mandi dalam (private)
+                  </li>
+                  <li>
+                    <i class="ti ti-check-circle" aria-hidden="true"></i> Akses
+                    internet (Wi-Fi)
+                  </li>
+                </ul>
+                <a
+                  href="#cta"
+                  class="btn btn-outline-navy"
+                  style="width: 100%; margin-top: var(--space-lg)"
+                >
+                  Tanyakan Harga
+                </a>
+              </div>
+            </article>
+
+            <!-- Kamar VIP -->
+            <article
+              class="room-card room-card--vip reveal reveal-delay-2"
+              aria-label="Kamar VIP"
+            >
+              <div class="room-card-badge-top">
+                <span class="badge badge-blue">
+                  <i class="ti ti-crown" aria-hidden="true"></i> Paling Diminati
+                </span>
+              </div>
+
+              <!--
+              Foto kamar VIP — ganti src dengan foto nyata.
+              Ukuran ideal: 800×450px, rasio 16:9.
+            -->
+              <div class="section-picture room-picture">
+                <img
+                  src="assets/images/room-vip.jpg"
+                  alt="Foto Kamar VIP StayKost"
+                  loading="lazy"
+                  onerror="this.style.display = 'none'"
+                />
+                <div class="section-picture-placeholder" aria-hidden="true">
+                  <i class="ti ti-stars"></i>
+                  <p>Foto Kamar VIP<br />room-vip.jpg</p>
+                </div>
+              </div>
+
+              <div class="room-card-body">
+                <div
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 0.6rem;
+                    margin-bottom: var(--space-md);
+                  "
+                >
+                  <div
+                    aria-hidden="true"
+                    style="
+                      width: 40px;
+                      height: 40px;
+                      background: var(--blue-50);
+                      border-radius: var(--radius-md);
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      font-size: 1.2rem;
+                      color: var(--navy-700);
+                    "
+                  >
+                    <i class="ti ti-stars"></i>
+                  </div>
+                  <span class="room-badge" style="font-size: var(--text-xl)"
+                    >Kamar VIP</span
+                  >
+                </div>
+
+                <p class="room-card-tagline">
+                  Kenyamanan lebih tinggi dengan ruangan lebih luas, pencahayaan
+                  alami, dan sirkulasi udara yang lebih baik. Ideal untuk
+                  pekerja profesional.
+                </p>
+                <ul
+                  class="room-features"
+                  role="list"
+                  aria-label="Fasilitas Kamar VIP"
+                >
+                  <li>
+                    <i class="ti ti-check-circle" aria-hidden="true"></i> Tempat
+                    tidur berukuran lebih besar
+                  </li>
+                  <li>
+                    <i class="ti ti-check-circle" aria-hidden="true"></i>
+                    Ruangan lebih luas — ruang gerak leluasa
+                  </li>
+                  <li>
+                    <i class="ti ti-check-circle" aria-hidden="true"></i>
+                    Jendela menghadap area luar — cahaya &amp; angin alami
+                  </li>
+                  <li>
+                    <i class="ti ti-check-circle" aria-hidden="true"></i> Lemari
+                    pakaian, meja kerja, kamar mandi dalam
+                  </li>
+                  <li>
+                    <i class="ti ti-check-circle" aria-hidden="true"></i> Akses
+                    internet (Wi-Fi) kecepatan tinggi
+                  </li>
+                </ul>
+                <a
+                  href="#cta"
+                  class="btn btn-primary"
+                  style="width: 100%; margin-top: var(--space-lg)"
+                >
+                  Tanyakan Harga
+                </a>
+              </div>
+            </article>
+          </div>
+
+          <p class="room-sewa-note reveal">
+            <i class="ti ti-calendar" aria-hidden="true"></i>
+            Tersedia sewa <strong>bulanan</strong> maupun
+            <strong>tahunan</strong> — pilih durasi yang paling sesuai.
+          </p>
+        </div>
+      </section>
+
+      <!-- ── 5. FASILITAS ── -->
+      <section
+        class="section section-alt"
+        id="fasilitas"
+        aria-label="Fasilitas Hunian"
+      >
+        <div class="container">
+          <div class="text-center reveal">
+            <p class="section-eyebrow">Yang Tersedia di StayKost</p>
+            <h2 class="section-title">Fasilitas &amp; Layanan</h2>
+            <p class="section-subtitle">
+              Setiap unit StayKost dirancang untuk memenuhi kebutuhan hunian
+              sehari-hari — dari kenyamanan kamar hingga keamanan lingkungan.
             </p>
           </div>
 
           <div
             class="features-grid"
             role="list"
-            aria-label="Daftar fitur StayKost"
+            aria-label="Daftar fasilitas StayKost"
           >
-            <!-- Feature 1 -->
             <article class="feature-card reveal reveal-delay-1" role="listitem">
               <div class="feature-icon" aria-hidden="true">
-                <i class="ti ti-search"></i>
+                <i class="ti ti-map-pin"></i>
               </div>
-              <h3 class="feature-title">Pencarian Kos</h3>
+              <h3 class="feature-title">Lokasi Strategis</h3>
               <p class="feature-desc">
-                Filter berdasarkan lokasi, harga, fasilitas, tipe kamar, aturan
-                kos, dan ketersediaan unit secara real-time.
+                Unit StayKost dibangun di dekat kampus, kawasan perkantoran, dan
+                pusat kota — hemat waktu dan biaya transportasi setiap hari.
               </p>
             </article>
-
-            <!-- Feature 2 -->
             <article class="feature-card reveal reveal-delay-2" role="listitem">
               <div class="feature-icon" aria-hidden="true">
-                <i class="ti ti-calendar-check"></i>
+                <i class="ti ti-wifi"></i>
               </div>
-              <h3 class="feature-title">Pemesanan Online</h3>
+              <h3 class="feature-title">Internet &amp; Akses Parkir</h3>
               <p class="feature-desc">
-                Booking langsung via aplikasi tanpa perlu survei ke lokasi.
-                Konfirmasi instan dari pemilik kos.
+                Akses internet cepat tersedia di seluruh unit. Dilengkapi area
+                parkir yang memadai untuk kendaraan roda dua maupun roda empat.
               </p>
             </article>
-
-            <!-- Feature 3 -->
             <article class="feature-card reveal reveal-delay-3" role="listitem">
               <div class="feature-icon" aria-hidden="true">
-                <i class="ti ti-credit-card"></i>
+                <i class="ti ti-shield-lock"></i>
               </div>
-              <h3 class="feature-title">Pembayaran Digital</h3>
+              <h3 class="feature-title">Sistem Keamanan</h3>
               <p class="feature-desc">
-                Transaksi yang praktis, aman, dan terdokumentasi. Berbagai
-                metode pembayaran tersedia dalam satu aplikasi.
+                Keamanan lingkungan terjaga melalui sistem keamanan
+                terstandarisasi — penghuni dapat tinggal dengan aman dan tenang.
               </p>
             </article>
-
-            <!-- Feature 4 -->
             <article class="feature-card reveal reveal-delay-1" role="listitem">
               <div class="feature-icon" aria-hidden="true">
-                <i class="ti ti-message-dots"></i>
+                <i class="ti ti-armchair"></i>
               </div>
-              <h3 class="feature-title">Fitur Chat</h3>
+              <h3 class="feature-title">Area Bersama</h3>
               <p class="feature-desc">
-                Komunikasi langsung antara calon penghuni dan pemilik kos tanpa
-                perantara. Tanya, negosiasi, dan sepakati — semua di satu
-                tempat.
+                Area bersama yang nyaman untuk belajar, bekerja, beristirahat,
+                maupun berinteraksi dengan sesama penghuni.
               </p>
             </article>
-
-            <!-- Feature 5 -->
             <article class="feature-card reveal reveal-delay-2" role="listitem">
               <div class="feature-icon" aria-hidden="true">
-                <i class="ti ti-building-estate"></i>
+                <i class="ti ti-device-mobile"></i>
               </div>
-              <h3 class="feature-title">Manajemen Properti</h3>
+              <h3 class="feature-title">Aplikasi StayKost</h3>
               <p class="feature-desc">
-                Kelola data kamar, harga sewa, fasilitas, dan ketersediaan unit
-                secara terpusat dari dasbor pemilik kos.
+                Semua kebutuhan dan keluhan penghuni dapat diajukan langsung via
+                aplikasi — proses lebih cepat, praktis, dan terdokumentasi.
               </p>
             </article>
-
-            <!-- Feature 6 -->
             <article class="feature-card reveal reveal-delay-3" role="listitem">
               <div class="feature-icon" aria-hidden="true">
                 <i class="ti ti-stars"></i>
               </div>
               <h3 class="feature-title">StayAssist</h3>
               <p class="feature-desc">
-                Layanan tambahan terintegrasi: pindahan, laundry, kebersihan,
-                dan perbaikan fasilitas — semua bisa diajukan dari aplikasi.
+                Layanan tambahan terintegrasi: laundry, kebersihan kamar,
+                bantuan pindahan, dan perbaikan fasilitas — semua via aplikasi
+                StayKost.
               </p>
             </article>
           </div>
         </div>
       </section>
 
-      <!-- ── 5. STAYASSIST (USP) ── -->
+      <!-- ── 6. STAYASSIST ── -->
       <section
         class="section stayassist"
         id="stayassist"
@@ -443,16 +693,16 @@
         <div class="container">
           <div class="stayassist-header reveal">
             <p class="section-eyebrow section-eyebrow--light">
-              Keunggulan Utama
+              Layanan Tambahan Eksklusif
             </p>
             <h2 class="section-title section-title--white">
               Kenalan dengan
               <span style="color: var(--blue-400)">StayAssist</span>
             </h2>
             <p class="stayassist-intro">
-              Layanan bantuan tambahan eksklusif yang mendampingi penghuni
-              sepanjang masa tinggal. StayKost bukan sekadar platform pencari
-              kos — kami hadir menemani keseharianmu.
+              Layanan bantuan bagi penghuni selama masa tinggal. Ajukan
+              kebutuhan atau keluhan langsung dari aplikasi StayKost — pelayanan
+              lebih cepat, praktis, dan terdokumentasi.
             </p>
           </div>
 
@@ -466,23 +716,11 @@
               class="sa-tab active"
               role="tab"
               aria-selected="true"
-              aria-controls="panel-pindahan"
-              id="tab-pindahan"
-              data-panel="pindahan"
-            >
-              <i class="ti ti-truck" aria-hidden="true"></i>
-              Jasa Pindahan
-            </button>
-            <button
-              class="sa-tab"
-              role="tab"
-              aria-selected="false"
               aria-controls="panel-laundry"
               id="tab-laundry"
               data-panel="laundry"
             >
-              <i class="ti ti-shirt" aria-hidden="true"></i>
-              Laundry
+              <i class="ti ti-shirt" aria-hidden="true"></i> Laundry
             </button>
             <button
               class="sa-tab"
@@ -492,8 +730,17 @@
               id="tab-kebersihan"
               data-panel="kebersihan"
             >
-              <i class="ti ti-sparkles" aria-hidden="true"></i>
-              Kebersihan
+              <i class="ti ti-sparkles" aria-hidden="true"></i> Kebersihan
+            </button>
+            <button
+              class="sa-tab"
+              role="tab"
+              aria-selected="false"
+              aria-controls="panel-pindahan"
+              id="tab-pindahan"
+              data-panel="pindahan"
+            >
+              <i class="ti ti-truck" aria-hidden="true"></i> Pindahan
             </button>
             <button
               class="sa-tab"
@@ -503,89 +750,57 @@
               id="tab-perbaikan"
               data-panel="perbaikan"
             >
-              <i class="ti ti-tool" aria-hidden="true"></i>
-              Perbaikan
+              <i class="ti ti-tool" aria-hidden="true"></i> Perbaikan
             </button>
           </div>
 
           <!-- Tab Panels -->
           <div class="sa-panels">
-            <!-- Panel: Pindahan -->
-            <div
-              class="sa-panel active"
-              id="panel-pindahan"
-              role="tabpanel"
-              aria-labelledby="tab-pindahan"
-            >
-              <div class="sa-panel-visual" aria-hidden="true">
-                <i
-                  class="ti ti-truck"
-                  style="font-size: 4rem; color: rgba(255, 255, 255, 0.25)"
-                ></i>
-              </div>
-              <div class="sa-panel-content">
-                <h3 class="sa-panel-title">Jasa Pindahan Kos</h3>
-                <p class="sa-panel-desc">
-                  Pindah masuk atau keluar kos jadi lebih mudah. Tim kami siap
-                  membantu mengangkut dan mengatur barang-barangmu dengan aman
-                  dan efisien.
-                </p>
-                <ul class="sa-panel-points" role="list">
-                  <li>
-                    <i class="ti ti-check" aria-hidden="true"></i>
-                    Penjemputan dan pengiriman barang
-                  </li>
-                  <li>
-                    <i class="ti ti-check" aria-hidden="true"></i>
-                    Packing &amp; unpacking profesional
-                  </li>
-                  <li>
-                    <i class="ti ti-check" aria-hidden="true"></i>
-                    Dijadwalkan langsung dari aplikasi
-                  </li>
-                  <li>
-                    <i class="ti ti-check" aria-hidden="true"></i>
-                    Harga transparan, tanpa biaya tersembunyi
-                  </li>
-                </ul>
-              </div>
-            </div>
-
             <!-- Panel: Laundry -->
             <div
-              class="sa-panel"
+              class="sa-panel active"
               id="panel-laundry"
               role="tabpanel"
               aria-labelledby="tab-laundry"
             >
-              <div class="sa-panel-visual" aria-hidden="true">
-                <i
-                  class="ti ti-shirt"
-                  style="font-size: 4rem; color: rgba(255, 255, 255, 0.25)"
-                ></i>
+              <!--
+              Foto layanan laundry — ganti src dengan foto nyata.
+              Ukuran ideal: 600×450px.
+            -->
+              <div class="sa-panel-picture">
+                <img
+                  src="assets/images/sa-laundry.jpg"
+                  alt="Layanan laundry StayAssist"
+                  loading="lazy"
+                  onerror="this.style.display = 'none'"
+                />
+                <div class="section-picture-placeholder" aria-hidden="true">
+                  <i class="ti ti-shirt"></i>
+                  <p>Foto Layanan Laundry<br />sa-laundry.jpg</p>
+                </div>
               </div>
               <div class="sa-panel-content">
                 <h3 class="sa-panel-title">Layanan Laundry</h3>
                 <p class="sa-panel-desc">
                   Hemat waktu dan tenaga — pakaian bersih dan rapi tanpa harus
-                  keluar kos. Pesan pickup, terima antar langsung ke kamarmu.
+                  keluar kos. Pesan pickup dan terima antar langsung ke kamarmu.
                 </p>
                 <ul class="sa-panel-points" role="list">
                   <li>
-                    <i class="ti ti-check" aria-hidden="true"></i>
-                    Pickup &amp; delivery ke kamar
+                    <i class="ti ti-check" aria-hidden="true"></i> Pickup &amp;
+                    delivery ke kamar
                   </li>
                   <li>
-                    <i class="ti ti-check" aria-hidden="true"></i>
-                    Cuci, setrika, dan lipat rapi
+                    <i class="ti ti-check" aria-hidden="true"></i> Cuci,
+                    setrika, dan lipat rapi
                   </li>
                   <li>
-                    <i class="ti ti-check" aria-hidden="true"></i>
-                    Notifikasi real-time lewat aplikasi
+                    <i class="ti ti-check" aria-hidden="true"></i> Ajukan
+                    langsung dari aplikasi StayKost
                   </li>
                   <li>
-                    <i class="ti ti-check" aria-hidden="true"></i>
-                    Mitra laundry terverifikasi
+                    <i class="ti ti-check" aria-hidden="true"></i> Mitra laundry
+                    terverifikasi
                   </li>
                 </ul>
               </div>
@@ -598,34 +813,87 @@
               role="tabpanel"
               aria-labelledby="tab-kebersihan"
             >
-              <div class="sa-panel-visual" aria-hidden="true">
-                <i
-                  class="ti ti-sparkles"
-                  style="font-size: 4rem; color: rgba(255, 255, 255, 0.25)"
-                ></i>
+              <div class="sa-panel-picture">
+                <img
+                  src="assets/images/sa-kebersihan.jpg"
+                  alt="Layanan kebersihan kamar StayAssist"
+                  loading="lazy"
+                  onerror="this.style.display = 'none'"
+                />
+                <div class="section-picture-placeholder" aria-hidden="true">
+                  <i class="ti ti-sparkles"></i>
+                  <p>Foto Layanan Kebersihan<br />sa-kebersihan.jpg</p>
+                </div>
               </div>
               <div class="sa-panel-content">
-                <h3 class="sa-panel-title">Layanan Kebersihan Kamar</h3>
+                <h3 class="sa-panel-title">Kebersihan Kamar</h3>
                 <p class="sa-panel-desc">
                   Kamarmu selalu terjaga kebersihannya. Tim cleaning profesional
-                  kami siap menjaga hunianmu tetap nyaman dan sehat.
+                  kami siap menjaga hunianmu tetap nyaman dan sehat setiap saat.
                 </p>
                 <ul class="sa-panel-points" role="list">
                   <li>
-                    <i class="ti ti-check" aria-hidden="true"></i>
-                    Pembersihan rutin atau on-demand
+                    <i class="ti ti-check" aria-hidden="true"></i> Pembersihan
+                    rutin atau on-demand
                   </li>
                   <li>
-                    <i class="ti ti-check" aria-hidden="true"></i>
-                    Deep cleaning tersedia
+                    <i class="ti ti-check" aria-hidden="true"></i> Deep cleaning
+                    tersedia
                   </li>
                   <li>
-                    <i class="ti ti-check" aria-hidden="true"></i>
-                    Petugas terlatih dan terverifikasi
+                    <i class="ti ti-check" aria-hidden="true"></i> Petugas
+                    terlatih dan terverifikasi
                   </li>
                   <li>
-                    <i class="ti ti-check" aria-hidden="true"></i>
-                    Jadwal fleksibel sesuai kebutuhan
+                    <i class="ti ti-check" aria-hidden="true"></i> Jadwal
+                    fleksibel sesuai kebutuhan
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Panel: Pindahan -->
+            <div
+              class="sa-panel"
+              id="panel-pindahan"
+              role="tabpanel"
+              aria-labelledby="tab-pindahan"
+            >
+              <div class="sa-panel-picture">
+                <img
+                  src="assets/images/sa-pindahan.jpg"
+                  alt="Bantuan pindahan StayAssist"
+                  loading="lazy"
+                  onerror="this.style.display = 'none'"
+                />
+                <div class="section-picture-placeholder" aria-hidden="true">
+                  <i class="ti ti-truck"></i>
+                  <p>Foto Layanan Pindahan<br />sa-pindahan.jpg</p>
+                </div>
+              </div>
+              <div class="sa-panel-content">
+                <h3 class="sa-panel-title">Bantuan Pindahan</h3>
+                <p class="sa-panel-desc">
+                  Pindah masuk atau keluar kos jadi lebih mudah. Tim kami siap
+                  membantu mengangkut dan mengatur barang-barangmu dengan aman
+                  dan efisien.
+                </p>
+                <ul class="sa-panel-points" role="list">
+                  <li>
+                    <i class="ti ti-check" aria-hidden="true"></i> Penjemputan
+                    dan pengiriman barang
+                  </li>
+                  <li>
+                    <i class="ti ti-check" aria-hidden="true"></i> Packing &amp;
+                    unpacking profesional
+                  </li>
+                  <li>
+                    <i class="ti ti-check" aria-hidden="true"></i> Jadwal via
+                    aplikasi StayKost
+                  </li>
+                  <li>
+                    <i class="ti ti-check" aria-hidden="true"></i> Harga
+                    transparan, tanpa biaya tersembunyi
                   </li>
                 </ul>
               </div>
@@ -638,35 +906,41 @@
               role="tabpanel"
               aria-labelledby="tab-perbaikan"
             >
-              <div class="sa-panel-visual" aria-hidden="true">
-                <i
-                  class="ti ti-tool"
-                  style="font-size: 4rem; color: rgba(255, 255, 255, 0.25)"
-                ></i>
+              <div class="sa-panel-picture">
+                <img
+                  src="assets/images/sa-perbaikan.jpg"
+                  alt="Layanan perbaikan fasilitas StayAssist"
+                  loading="lazy"
+                  onerror="this.style.display = 'none'"
+                />
+                <div class="section-picture-placeholder" aria-hidden="true">
+                  <i class="ti ti-tool"></i>
+                  <p>Foto Layanan Perbaikan<br />sa-perbaikan.jpg</p>
+                </div>
               </div>
               <div class="sa-panel-content">
                 <h3 class="sa-panel-title">Perbaikan Fasilitas</h3>
                 <p class="sa-panel-desc">
                   Fasilitas bermasalah? Laporkan langsung dari aplikasi dan
-                  teknisi kami akan segera menanganinya — cepat, terpercaya, dan
+                  teknisi kami segera menanganinya — cepat, terpercaya, dan
                   terdokumentasi.
                 </p>
                 <ul class="sa-panel-points" role="list">
                   <li>
-                    <i class="ti ti-check" aria-hidden="true"></i>
-                    Perbaikan listrik, air, dan AC
+                    <i class="ti ti-check" aria-hidden="true"></i> Perbaikan
+                    listrik, air, dan AC
                   </li>
                   <li>
-                    <i class="ti ti-check" aria-hidden="true"></i>
-                    Perabot dan furniture kamar
+                    <i class="ti ti-check" aria-hidden="true"></i> Perabot dan
+                    furniture kamar
                   </li>
                   <li>
-                    <i class="ti ti-check" aria-hidden="true"></i>
-                    Laporan dan status via aplikasi
+                    <i class="ti ti-check" aria-hidden="true"></i> Laporan &amp;
+                    status real-time via aplikasi
                   </li>
                   <li>
-                    <i class="ti ti-check" aria-hidden="true"></i>
-                    Teknisi berpengalaman &amp; bergaransi
+                    <i class="ti ti-check" aria-hidden="true"></i> Teknisi
+                    berpengalaman &amp; bergaransi
                   </li>
                 </ul>
               </div>
@@ -675,152 +949,112 @@
         </div>
       </section>
 
-      <!-- ── 6. TARGET PENGGUNA ── -->
+      <!-- ── 7. TARGET PENGHUNI ── -->
       <section
         class="section section-alt"
         id="target"
-        aria-label="Target Pengguna"
+        aria-label="Target Penghuni"
       >
         <div class="container">
           <div class="text-center reveal">
             <p class="section-eyebrow">Untuk Siapa?</p>
-            <h2 class="section-title">Dirancang untuk Semua</h2>
+            <h2 class="section-title">Hunian untuk Semua</h2>
             <p class="section-subtitle">
-              StayKost melayani dua sisi ekosistem hunian kos — pencari kos
-              maupun pemilik properti.
+              StayKost hadir memenuhi kebutuhan siapa saja yang membutuhkan
+              tempat tinggal nyaman di sekitar kampus, perkantoran, maupun
+              kawasan strategis lainnya.
             </p>
           </div>
 
-          <div class="target-grid">
-            <!-- Pencari Kos -->
-            <div class="target-card target-card--pencari reveal reveal-delay-1">
-              <div class="target-card-label">Segmen 1</div>
-              <span class="target-card-icon" aria-hidden="true">
-                <i class="ti ti-users" style="font-size: 2.5rem"></i>
-              </span>
-              <h3 class="target-card-title">Pencari Kos</h3>
-              <p
-                style="
-                  color: rgba(255, 255, 255, 0.72);
-                  font-size: var(--text-base);
-                  line-height: 1.65;
-                "
-              >
-                Untuk kamu yang sedang mencari hunian baru — dekat kampus, dekat
-                kantor, atau sekadar ingin tempat tinggal yang nyaman sesuai
-                budget.
-              </p>
-              <div class="target-tags">
-                <span class="target-tag">
-                  <i class="ti ti-school" aria-hidden="true"></i> Mahasiswa
-                </span>
-                <span class="target-tag">
-                  <i class="ti ti-briefcase" aria-hidden="true"></i> Pekerja /
-                  Karyawan
-                </span>
-                <span class="target-tag">
-                  <i class="ti ti-map-pin" aria-hidden="true"></i> Perantau
-                </span>
-                <span class="target-tag">
-                  <i class="ti ti-user" aria-hidden="true"></i> Masyarakat Umum
-                </span>
+          <div class="target-segments" style="margin-top: var(--space-2xl)">
+            <div class="target-segment reveal reveal-delay-1">
+              <div class="target-segment-icon" aria-hidden="true">
+                <i class="ti ti-school"></i>
               </div>
+              <h3 class="target-segment-title">Mahasiswa</h3>
+              <p class="target-segment-desc">
+                Butuh kos dekat kampus yang aman, nyaman, dan sesuai budget.
+              </p>
             </div>
-
-            <!-- Pemilik Kos -->
-            <div class="target-card target-card--pemilik reveal reveal-delay-2">
-              <div class="target-card-label">Segmen 2</div>
-              <span class="target-card-icon" aria-hidden="true">
-                <i
-                  class="ti ti-building"
-                  style="font-size: 2.5rem; color: var(--navy-700)"
-                ></i>
-              </span>
-              <h3 class="target-card-title">Pemilik Kos</h3>
-              <p
-                style="
-                  color: var(--color-text-body);
-                  font-size: var(--text-base);
-                  line-height: 1.65;
-                "
-              >
-                Untuk kamu yang memiliki properti dan ingin memasarkan serta
-                mengelola kos secara digital — lebih mudah, lebih luas
-                jangkauannya.
-              </p>
-              <div class="target-tags">
-                <span class="target-tag">
-                  <i class="ti ti-home" aria-hidden="true"></i> Pemilik Properti
-                </span>
-                <span class="target-tag">
-                  <i class="ti ti-chart-bar" aria-hidden="true"></i> Manajemen
-                  Digital
-                </span>
-                <span class="target-tag">
-                  <i class="ti ti-world" aria-hidden="true"></i> Jangkauan Lebih
-                  Luas
-                </span>
+            <div class="target-segment reveal reveal-delay-2">
+              <div class="target-segment-icon" aria-hidden="true">
+                <i class="ti ti-briefcase"></i>
               </div>
+              <h3 class="target-segment-title">Pekerja &amp; Karyawan</h3>
+              <p class="target-segment-desc">
+                Butuh hunian dekat kantor yang praktis tanpa perlu mengurus
+                rumah sendiri.
+              </p>
+            </div>
+            <div class="target-segment reveal reveal-delay-3">
+              <div class="target-segment-icon" aria-hidden="true">
+                <i class="ti ti-map-pin"></i>
+              </div>
+              <h3 class="target-segment-title">Perantau</h3>
+              <p class="target-segment-desc">
+                Membutuhkan hunian sementara atau jangka panjang di kota baru
+                dengan jaminan keamanan.
+              </p>
+            </div>
+            <div class="target-segment reveal reveal-delay-4">
+              <div class="target-segment-icon" aria-hidden="true">
+                <i class="ti ti-user"></i>
+              </div>
+              <h3 class="target-segment-title">Masyarakat Umum</h3>
+              <p class="target-segment-desc">
+                Siapa saja yang membutuhkan hunian terjangkau namun berkualitas
+                di lokasi strategis.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ── 7. CTA SECTION ── -->
+      <!-- ── 8. CTA ── -->
       <section
         class="section cta-section"
         id="cta"
-        aria-label="Download dan Hubungi Kami"
+        aria-label="Sewa Kamar dan Hubungi Kami"
       >
         <div class="container">
           <div class="reveal">
-            <p class="section-eyebrow section-eyebrow--light">Mulai Sekarang</p>
+            <p class="section-eyebrow section-eyebrow--light">
+              Mulai Tinggal di StayKost
+            </p>
             <h2 class="section-title section-title--white">
-              Siap Menemukan Kos<br />Impianmu?
+              Siap Pindah ke Hunian<br />yang Lebih Nyaman?
             </h2>
             <p
               class="section-subtitle section-subtitle--light"
               style="margin-inline: auto; text-align: center"
             >
-              Bergabunglah dengan ribuan penghuni yang sudah merasakan kemudahan
-              StayKost. Download aplikasinya sekarang — gratis.
+              Hubungi kami sekarang untuk informasi ketersediaan kamar, harga,
+              dan jadwal survei. Tim kami siap melayanimu dengan cepat dan
+              profesional.
             </p>
           </div>
-
           <div class="cta-actions reveal">
-            <a
-              href="https://www.figma.com/make/lJlvjyRL0kqzsPx5F1i4ZJ/StayKost-Mobile-Web-App?code-node-id=0-9&p=f&t=xz3FwZj2jNGKNmNg-0&fullscreen=1"
-              class="btn btn-primary"
-            >
-              <i class="ti ti-brand-google-play" aria-hidden="true"></i>
-              Google Play
-            </a>
-            <a
-              href="https://www.figma.com/make/lJlvjyRL0kqzsPx5F1i4ZJ/StayKost-Mobile-Web-App?code-node-id=0-9&p=f&t=xz3FwZj2jNGKNmNg-0&fullscreen=1"
-              class="btn btn-outline"
-            >
-              <i class="ti ti-brand-apple" aria-hidden="true"></i>
-              App Store
-            </a>
-            <a
-              href="https://www.figma.com/make/lJlvjyRL0kqzsPx5F1i4ZJ/StayKost-Mobile-Web-App?code-node-id=0-9&p=f&t=xz3FwZj2jNGKNmNg-0&fullscreen=1"
-              class="btn btn-outline"
-            >
-              <i class="ti ti-building-estate" aria-hidden="true"></i>
-              Daftarkan Properti
-            </a>
-          </div>
-
-          <p class="cta-contact reveal">
-            Ada pertanyaan? Hubungi kami di
-            <a href="mailto:hello@staykost.id">hello@staykost.id</a>
-            atau via
             <a
               href="https://wa.me/6281234567890"
               target="_blank"
               rel="noopener noreferrer"
-              >WhatsApp</a
+              class="btn btn-primary"
             >
+              <i class="ti ti-brand-whatsapp" aria-hidden="true"></i>
+              Hubungi via WhatsApp
+            </a>
+            <a href="#tipe-kamar" class="btn btn-outline">
+              <i class="ti ti-bed" aria-hidden="true"></i>
+              Lihat Tipe Kamar
+            </a>
+            <a href="#" class="btn btn-outline">
+              <i class="ti ti-download" aria-hidden="true"></i>
+              Unduh Aplikasi
+            </a>
+          </div>
+          <p class="cta-contact reveal">
+            Atau email kami di
+            <a href="mailto:hello@staykost.id">hello@staykost.id</a>
           </p>
         </div>
       </section>
@@ -832,41 +1066,34 @@
     <footer class="footer" role="contentinfo">
       <div class="container">
         <div class="footer-top">
-          <!-- Brand -->
           <div class="footer-brand">
             <span class="footer-logo-text">Stay<span>Kost</span></span>
             <p class="footer-tagline">
-              Platform digital hunian kos yang terpercaya. Temukan, pesan, dan
-              kelola kos — semua dalam satu ekosistem terintegrasi.
+              Perusahaan properti berbasis teknologi yang membangun, memiliki,
+              dan mengelola hunian kos modern secara langsung — kualitas
+              terjamin, pelayanan profesional.
             </p>
           </div>
-
-          <!-- Nav: Layanan -->
-          <nav aria-label="Menu footer layanan">
-            <p class="footer-nav-title">Layanan</p>
+          <nav aria-label="Menu footer hunian">
+            <p class="footer-nav-title">Hunian</p>
             <ul class="footer-nav-list">
-              <li><a href="#fitur">Pencarian Kos</a></li>
-              <li><a href="#fitur">Pemesanan Online</a></li>
-              <li><a href="#fitur">Pembayaran Digital</a></li>
+              <li><a href="#tipe-kamar">Kamar Biasa</a></li>
+              <li><a href="#tipe-kamar">Kamar VIP</a></li>
+              <li><a href="#fasilitas">Fasilitas</a></li>
               <li><a href="#stayassist">StayAssist</a></li>
-              <li><a href="#fitur">Manajemen Properti</a></li>
             </ul>
           </nav>
-
-          <!-- Nav: Perusahaan -->
           <nav aria-label="Menu footer perusahaan">
             <p class="footer-nav-title">Perusahaan</p>
             <ul class="footer-nav-list">
               <li><a href="#tentang">Tentang Kami</a></li>
               <li><a href="#visi-misi">Visi &amp; Misi</a></li>
-              <li><a href="#target">Target Pengguna</a></li>
+              <li><a href="#target">Target Penghuni</a></li>
               <li><a href="mailto:hello@staykost.id">Hubungi Kami</a></li>
               <li><a href="#">Kebijakan Privasi</a></li>
             </ul>
           </nav>
         </div>
-
-        <!-- Footer Bottom -->
         <div class="footer-bottom">
           <p>&copy; 2026 StayKost. Seluruh hak cipta dilindungi.</p>
           <p>
@@ -882,9 +1109,7 @@
       </div>
     </footer>
 
-    <!-- ════════════════════════════════════════
-       JAVASCRIPT
-       ════════════════════════════════════════ -->
+    <!-- JavaScript — theme.js sudah dimuat di <head> -->
     <script src="js/navbar.js"></script>
     <script src="js/scroll-reveal.js"></script>
     <script src="js/stayassist.js"></script>

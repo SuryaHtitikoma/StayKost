@@ -177,6 +177,10 @@
 
 /* ── REDUCED MOTION ── */
 @media (prefers-reduced-motion: reduce) {
+  html {
+    transition: none !important;
+  }
+
   *,
   *::before,
   *::after {
@@ -236,5 +240,65 @@
     content: " (" attr(href) ")";
     font-size: 10pt;
     color: #555;
+  }
+}
+
+/* ── TIPE KAMAR — Tablet+ ── */
+@media (min-width: 768px) {
+  .room-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .target-segments {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .target-segments {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ── THEME TOGGLE — responsive ── */
+@media (min-width: 768px) {
+  /* On desktop: toggle sits between nav links and CTA — no extra rule needed */
+  /* On mobile: always visible next to hamburger */
+}
+
+/* Slightly smaller toggle on very small screens */
+@media (max-width: 360px) {
+  .theme-toggle {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+}
+
+/* ── HERO PICTURE — responsive ── */
+@media (min-width: 1024px) {
+  .hero-picture {
+    max-width: 380px;
+    aspect-ratio: 3/4;
+  }
+}
+
+/* ── ABOUT PICTURE — responsive ── */
+@media (min-width: 768px) {
+  .about-picture {
+    aspect-ratio: 4/3;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-picture {
+    aspect-ratio: 1;
+  }
+}
+
+/* ── SA PANEL PICTURE — responsive ── */
+@media (min-width: 768px) {
+  .sa-panel-picture {
+    aspect-ratio: 1;
   }
 }
