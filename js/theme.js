@@ -1,26 +1,32 @@
 /* ============================================================
-   STAYKOST — theme.js
-   Dark / Light mode:
-   1. Detect system preference (prefers-color-scheme)
-   2. Override with user's saved choice (localStorage)
-   3. Apply [data-theme] to <html>
-   4. Toggle via button
-   5. Swap favicon + logo on switch
+   STAYKOST — theme.js  (fixed)
+
+   BUG SEBELUMNYA:
+   applyTheme() dipanggil langsung di <head> saat DOM belum ada.
+   document.documentElement.setAttribute() → OK (selalu ada).
+   swapLogo() & updateToggleButton() → NULL, gagal diam-diam.
+   Keduanya tidak pernah dipanggil ulang setelah DOM siap.
+
+   FIX:
+   Pisah menjadi dua fungsi bertanggung jawab berbeda:
+   ┌─ applyThemeAttr()  → hanya set data-theme, jalan SEGERA
+   │                      di <head> sebelum body render
+   │                      → mencegah Flash of Wrong Theme (FOWT)
+   └─ applyThemeDom()   → update logo, favicon, tombol
+                          hanya dipanggil setelah DOMContentLoaded
    ============================================================ */
 
 (function () {
   "use strict";
 
-  const STORAGE_KEY = "staykost-theme";
-  const ATTR = "data-theme";
-  const DARK = "dark";
-  const LIGHT = "light";
+  var STORAGE_KEY = "staykost-theme";
+  var DARK = "dark";
+  var LIGHT = "light";
 
-  // ── Asset paths ────────────────────────────────────────────
-  const ASSETS = {
+  var ASSETS = {
     favicon: {
-      light: "assets/images/favicon.ico",
-      dark: "assets/images/favicon-dark.ico",
+      light: "favicon.ico",
+      dark: "favicon-dark.ico",
     },
     logo: {
       light: "assets/images/logo.png",
@@ -28,58 +34,63 @@
     },
   };
 
-  // ── Detect system preference ───────────────────────────────
+  /* ── Helper: tema aktif ──────────────────────────────────── */
   function getSystemTheme() {
     return window.matchMedia("(prefers-color-scheme: dark)").matches
       ? DARK
       : LIGHT;
   }
 
-  // ── Get saved or system theme ──────────────────────────────
   function getActiveTheme() {
     return localStorage.getItem(STORAGE_KEY) || getSystemTheme();
   }
 
-  // ── Apply theme to <html> ──────────────────────────────────
-  function applyTheme(theme) {
-    document.documentElement.setAttribute(ATTR, theme);
+  /* ── STEP 1 — Segera (aman di <head>) ───────────────────── */
+  /* Hanya set attribute di <html>. Tidak menyentuh DOM lain. */
+  function applyThemeAttr(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+  }
+
+  /* ── STEP 2 — Setelah DOM siap ──────────────────────────── */
+  /* Logo, favicon, ikon tombol — semua butuh elemen <body>.  */
+  function applyThemeDom(theme) {
     swapFavicon(theme);
     swapLogo(theme);
     updateToggleButton(theme);
   }
 
-  // ── Swap favicon ───────────────────────────────────────────
+  /* ── Favicon swap ────────────────────────────────────────── */
   function swapFavicon(theme) {
-    // Handle <link rel="icon">
-    const faviconEl = document.querySelector('link[rel="icon"]');
-    if (faviconEl) {
-      faviconEl.href = ASSETS.favicon[theme] || ASSETS.favicon.light;
+    var el = document.getElementById("favicon-link");
+    if (!el) return;
+    var newHref = ASSETS.favicon[theme] || ASSETS.favicon.light;
+    if (el.getAttribute("href") !== newHref) {
+      el.setAttribute("href", newHref);
     }
   }
 
-  // ── Swap logo img ──────────────────────────────────────────
+  /* ── Logo swap ───────────────────────────────────────────── */
   function swapLogo(theme) {
-    const logoImg = document.getElementById("navbar-logo-img");
-    if (!logoImg) return;
-    const newSrc = ASSETS.logo[theme] || ASSETS.logo.light;
-    // Only update if changed (avoids flash)
-    if (logoImg.getAttribute("src") !== newSrc) {
-      logoImg.setAttribute("src", newSrc);
-      logoImg.setAttribute(
-        "alt",
-        theme === DARK ? "StayKost logo dark" : "StayKost logo",
-      );
+    var img = document.getElementById("navbar-logo-img");
+    if (!img) return;
+    var newSrc = ASSETS.logo[theme] || ASSETS.logo.light;
+    if (img.getAttribute("src") !== newSrc) {
+      img.setAttribute("src", newSrc);
     }
   }
 
-  // ── Update toggle button icon & aria-label ─────────────────
+  /* ── Toggle button: ikon + aria-label ───────────────────── */
   function updateToggleButton(theme) {
-    const btn = document.getElementById("theme-toggle");
-    const icon = document.getElementById("theme-toggle-icon");
+    var btn = document.getElementById("theme-toggle");
+    var icon = document.getElementById("theme-toggle-icon");
     if (!btn || !icon) return;
 
-    const isDark = theme === DARK;
+    var isDark = theme === DARK;
+
+    /* Dark mode aktif → tampilkan ikon MATAHARI (untuk switch ke light) */
+    /* Light mode aktif → tampilkan ikon BULAN   (untuk switch ke dark)  */
     icon.className = isDark ? "ti ti-sun" : "ti ti-moon";
+
     btn.setAttribute(
       "aria-label",
       isDark ? "Ganti ke mode terang" : "Ganti ke mode gelap",
@@ -87,46 +98,57 @@
     btn.setAttribute("title", isDark ? "Mode Terang" : "Mode Gelap");
   }
 
-  // ── Toggle between dark and light ─────────────────────────
+  /* ── Toggle handler (dipanggil saat klik tombol) ────────── */
+  /* DOM sudah pasti siap saat user bisa klik tombol.          */
   function toggleTheme() {
-    const current =
-      document.documentElement.getAttribute(ATTR) || getActiveTheme();
-    const next = current === DARK ? LIGHT : DARK;
+    var current =
+      document.documentElement.getAttribute("data-theme") || getActiveTheme();
+    var next = current === DARK ? LIGHT : DARK;
+
     localStorage.setItem(STORAGE_KEY, next);
-    applyTheme(next);
+    applyThemeAttr(next);
+    applyThemeDom(next); /* DOM ready — aman */
   }
 
-  // ── Bind toggle button ─────────────────────────────────────
+  /* ── Bind tombol ─────────────────────────────────────────── */
   function bindToggle() {
-    const btn = document.getElementById("theme-toggle");
-    if (btn) {
-      btn.addEventListener("click", toggleTheme);
-    }
+    var btn = document.getElementById("theme-toggle");
+    if (btn) btn.addEventListener("click", toggleTheme);
   }
 
-  // ── Listen to system preference change ────────────────────
-  // Only applies if user has not manually overridden
+  /* ── Reactive: ikuti perubahan sistem ───────────────────── */
+  /* Hanya aktif jika user BELUM pernah manual toggle.         */
   function listenSystemChange() {
-    const mql = window.matchMedia("(prefers-color-scheme: dark)");
+    var mql = window.matchMedia("(prefers-color-scheme: dark)");
     mql.addEventListener("change", function (e) {
-      // Only auto-switch if no manual preference saved
-      if (!localStorage.getItem(STORAGE_KEY)) {
-        applyTheme(e.matches ? DARK : LIGHT);
-      }
+      if (localStorage.getItem(STORAGE_KEY))
+        return; /* ada pilihan manual → abaikan */
+      var newTheme = e.matches ? DARK : LIGHT;
+      applyThemeAttr(newTheme);
+      applyThemeDom(newTheme); /* DOM sudah ready */
     });
   }
 
-  // ── INIT ───────────────────────────────────────────────────
-  // Apply theme ASAP (before DOMContentLoaded) to prevent flash
-  applyTheme(getActiveTheme());
+  /* ══════════════════════════════════════════════════════════
+     INIT
+     ══════════════════════════════════════════════════════════ */
 
-  // Bind button and system listener after DOM ready
+  /* Langkah 1 — SEGERA: set data-theme sebelum browser render body
+     → tidak ada flash of wrong theme                               */
+  applyThemeAttr(getActiveTheme());
+
+  /* Langkah 2 — SETELAH DOM: update logo, favicon, tombol         */
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", function () {
+      applyThemeDom(
+        getActiveTheme(),
+      ); /* ← Fix utama: dipanggil setelah DOM siap */
       bindToggle();
       listenSystemChange();
     });
   } else {
+    /* readyState sudah 'interactive' atau 'complete' */
+    applyThemeDom(getActiveTheme());
     bindToggle();
     listenSystemChange();
   }
