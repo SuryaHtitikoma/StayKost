@@ -1,19 +1,20 @@
 /* ============================================================
-   STAYKOST — theme.js  (fixed)
+   STAYKOST — theme.js  (Enhanced)
 
-   BUG SEBELUMNYA:
-   applyTheme() dipanggil langsung di <head> saat DOM belum ada.
-   document.documentElement.setAttribute() → OK (selalu ada).
-   swapLogo() & updateToggleButton() → NULL, gagal diam-diam.
-   Keduanya tidak pernah dipanggil ulang setelah DOM siap.
+   FEATURES:
+   - No Flash of Wrong Theme (FOWT)
+   - Smooth transitions with CSS
+   - System preference detection
+   - User preference persistence
+   - Accessibility announcements
+   - Logo & favicon swapping
+   - Keyboard shortcut support (Alt+T)
+   - Reactive to system theme changes
 
-   FIX:
-   Pisah menjadi dua fungsi bertanggung jawab berbeda:
-   ┌─ applyThemeAttr()  → hanya set data-theme, jalan SEGERA
-   │                      di <head> sebelum body render
-   │                      → mencegah Flash of Wrong Theme (FOWT)
-   └─ applyThemeDom()   → update logo, favicon, tombol
-                          hanya dipanggil setelah DOMContentLoaded
+   ARCHITECTURE:
+   ┌─ applyThemeAttr()  → ASAP in <head>, set data-theme
+   │                      (prevent FOWT)
+   └─ applyThemeDom()   → After DOM ready, update UI elements
    ============================================================ */
 
 (function () {
@@ -22,11 +23,12 @@
   var STORAGE_KEY = "staykost-theme";
   var DARK = "dark";
   var LIGHT = "light";
+  var TRANSITION_CLASS = "theme-transitioning";
 
   var ASSETS = {
     favicon: {
-      light: "favicon.ico",
-      dark: "favicon-dark.ico",
+      light: "assets/images/favicon.ico",
+      dark: "assets/images/favicon-dark.ico",
     },
     logo: {
       light: "assets/images/logo.png",
@@ -34,29 +36,42 @@
     },
   };
 
-  /* ── Helper: tema aktif ──────────────────────────────────── */
+  /* ── Helper: Get system theme preference ──────────────────── */
   function getSystemTheme() {
     return window.matchMedia("(prefers-color-scheme: dark)").matches
       ? DARK
       : LIGHT;
   }
 
+  /* ── Helper: Get currently active theme ──────────────────── */
   function getActiveTheme() {
-    return localStorage.getItem(STORAGE_KEY) || getSystemTheme();
+    var stored = localStorage.getItem(STORAGE_KEY);
+    return stored || getSystemTheme();
   }
 
-  /* ── STEP 1 — Segera (aman di <head>) ───────────────────── */
-  /* Hanya set attribute di <html>. Tidak menyentuh DOM lain. */
+  /* ── Helper: Get next theme ──────────────────────────────── */
+  function getNextTheme() {
+    var current =
+      document.documentElement.getAttribute("data-theme") || getActiveTheme();
+    return current === DARK ? LIGHT : DARK;
+  }
+
+  /* ── STEP 1 — IMMEDIATE (safe in <head>) ─────────────────── */
+  /* Only set attribute on <html>. No DOM manipulation. */
   function applyThemeAttr(theme) {
+    if (document.documentElement.getAttribute("data-theme") === theme) {
+      return; /* No change needed */
+    }
     document.documentElement.setAttribute("data-theme", theme);
   }
 
-  /* ── STEP 2 — Setelah DOM siap ──────────────────────────── */
-  /* Logo, favicon, ikon tombol — semua butuh elemen <body>.  */
+  /* ── STEP 2 — AFTER DOM READY ─────────────────────────────── */
+  /* Update logo, favicon, button icon. */
   function applyThemeDom(theme) {
     swapFavicon(theme);
     swapLogo(theme);
     updateToggleButton(theme);
+    announceThemeChange(theme);
   }
 
   /* ── Favicon swap ────────────────────────────────────────── */
@@ -79,7 +94,7 @@
     }
   }
 
-  /* ── Toggle button: ikon + aria-label ───────────────────── */
+  /* ── Update toggle button: icon + aria-label ───────────────── */
   function updateToggleButton(theme) {
     var btn = document.getElementById("theme-toggle");
     var icon = document.getElementById("theme-toggle-icon");
@@ -87,69 +102,126 @@
 
     var isDark = theme === DARK;
 
-    /* Dark mode aktif → tampilkan ikon MATAHARI (untuk switch ke light) */
-    /* Light mode aktif → tampilkan ikon BULAN   (untuk switch ke dark)  */
+    /* Dark mode → show SUN icon (to switch to light) */
+    /* Light mode → show MOON icon (to switch to dark) */
     icon.className = isDark ? "ti ti-sun" : "ti ti-moon";
 
-    btn.setAttribute(
-      "aria-label",
-      isDark ? "Ganti ke mode terang" : "Ganti ke mode gelap",
-    );
-    btn.setAttribute("title", isDark ? "Mode Terang" : "Mode Gelap");
+    var label = isDark ? "Ganti ke mode terang" : "Ganti ke mode gelap";
+    var title = isDark ? "Mode Terang" : "Mode Gelap";
+
+    btn.setAttribute("aria-label", label);
+    btn.setAttribute("title", title);
   }
 
-  /* ── Toggle handler (dipanggil saat klik tombol) ────────── */
-  /* DOM sudah pasti siap saat user bisa klik tombol.          */
+  /* ── Accessibility announcement ──────────────────────────── */
+  function announceThemeChange(theme) {
+    var message =
+      theme === DARK ? "Mode gelap diaktifkan" : "Mode terang diaktifkan";
+
+    /* Create or reuse live region for announcements */
+    var liveRegion = document.getElementById("theme-announce");
+    if (!liveRegion) {
+      liveRegion = document.createElement("div");
+      liveRegion.id = "theme-announce";
+      liveRegion.setAttribute("aria-live", "polite");
+      liveRegion.setAttribute("aria-atomic", "true");
+      liveRegion.style.position = "absolute";
+      liveRegion.style.left = "-9999px";
+      document.body.appendChild(liveRegion);
+    }
+    liveRegion.textContent = message;
+  }
+
+  /* ── Toggle theme handler ────────────────────────────────── */
   function toggleTheme() {
-    var current =
-      document.documentElement.getAttribute("data-theme") || getActiveTheme();
-    var next = current === DARK ? LIGHT : DARK;
-
-    localStorage.setItem(STORAGE_KEY, next);
-    applyThemeAttr(next);
-    applyThemeDom(next); /* DOM ready — aman */
+    var next = getNextTheme();
+    setTheme(next);
   }
 
-  /* ── Bind tombol ─────────────────────────────────────────── */
+  /* ── Set theme with transition class ────────────────────────── */
+  function setTheme(theme) {
+    /* Save preference */
+    localStorage.setItem(STORAGE_KEY, theme);
+
+    /* Apply theme */
+    applyThemeAttr(theme);
+    applyThemeDom(theme);
+
+    /* Optional: Add transition class for special effects */
+    if (document.body.classList) {
+      document.body.classList.add(TRANSITION_CLASS);
+      setTimeout(function () {
+        document.body.classList.remove(TRANSITION_CLASS);
+      }, 300);
+    }
+  }
+
+  /* ── Bind toggle button click ─────────────────────────────── */
   function bindToggle() {
     var btn = document.getElementById("theme-toggle");
-    if (btn) btn.addEventListener("click", toggleTheme);
+    if (btn) {
+      btn.addEventListener("click", toggleTheme);
+    }
   }
 
-  /* ── Reactive: ikuti perubahan sistem ───────────────────── */
-  /* Hanya aktif jika user BELUM pernah manual toggle.         */
+  /* ── Keyboard shortcut: Alt+T to toggle theme ────────────────── */
+  function bindKeyboardShortcut() {
+    document.addEventListener("keydown", function (e) {
+      /* Alt+T */
+      if (e.altKey && e.key === "t") {
+        e.preventDefault();
+        toggleTheme();
+      }
+    });
+  }
+
+  /* ── Listen for system theme changes ────────────────────────── */
+  /* Only active if user hasn't manually set a preference. */
   function listenSystemChange() {
     var mql = window.matchMedia("(prefers-color-scheme: dark)");
     mql.addEventListener("change", function (e) {
-      if (localStorage.getItem(STORAGE_KEY))
-        return; /* ada pilihan manual → abaikan */
+      /* User has manual preference → ignore system change */
+      if (localStorage.getItem(STORAGE_KEY)) return;
+
       var newTheme = e.matches ? DARK : LIGHT;
       applyThemeAttr(newTheme);
-      applyThemeDom(newTheme); /* DOM sudah ready */
+      applyThemeDom(newTheme);
     });
   }
 
   /* ══════════════════════════════════════════════════════════
-     INIT
+     INITIALIZATION
      ══════════════════════════════════════════════════════════ */
 
-  /* Langkah 1 — SEGERA: set data-theme sebelum browser render body
-     → tidak ada flash of wrong theme                               */
+  /* Step 1 — IMMEDIATELY: Set data-theme before body renders
+     → Prevent Flash of Wrong Theme (FOWT) */
   applyThemeAttr(getActiveTheme());
 
-  /* Langkah 2 — SETELAH DOM: update logo, favicon, tombol         */
+  /* Step 2 — AFTER DOM READY: Update UI, bind events */
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", function () {
-      applyThemeDom(
-        getActiveTheme(),
-      ); /* ← Fix utama: dipanggil setelah DOM siap */
+      applyThemeDom(getActiveTheme());
       bindToggle();
+      bindKeyboardShortcut();
       listenSystemChange();
     });
   } else {
-    /* readyState sudah 'interactive' atau 'complete' */
+    /* DOM already ready (e.g., script loaded late) */
     applyThemeDom(getActiveTheme());
     bindToggle();
+    bindKeyboardShortcut();
     listenSystemChange();
+  }
+
+  /* ── Export for external use (optional) ──────────────────── */
+  if (window && !window.StayKostTheme) {
+    window.StayKostTheme = {
+      toggle: toggleTheme,
+      set: setTheme,
+      get: getActiveTheme,
+      getNext: getNextTheme,
+      DARK: DARK,
+      LIGHT: LIGHT,
+    };
   }
 })();
