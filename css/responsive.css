@@ -74,6 +74,17 @@
   }
 }
 
+/* ── MOBILE LIGHT MODE: hamburger accent color ── */
+@media (max-width: 767.98px) {
+  [data-theme="light"] .hamburger-line {
+    background: var(--navy-700);
+  }
+
+  [data-theme="light"] .hamburger:hover {
+    background: rgba(15, 77, 184, 0.08);
+  }
+}
+
 /* ── DESKTOP: 1024px and up ── */
 @media (min-width: 1024px) {
   :root {
